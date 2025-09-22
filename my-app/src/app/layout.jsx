@@ -43,11 +43,9 @@ export default function RootLayout({ children }) {
             </div>
             <h2 className="border bg-green-300 rounded-lg py-1 px-2 text-black">Let's Trade</h2>
           </div>
-          <div className="w-80">
-            <FaShoppingCart className="border rounded-sm text-2xl text-black w-10 h-10 p-2 bg-white"/>
-          </div>
-          <div className="w-80">
-            <FaShoppingCart className="border rounded-sm text-2xl text-black w-10 h-10 p-2 bg-white"/>
+          <div className="justify-between space-x-55">
+            <FaShoppingCart className="inline-block border rounded-sm text-black w-10 h-10 p-2 bg-white"/>
+            <CgProfile className="inline-block rounded-sm text-white w-13 h-13 p-2"/>
           </div>
         </header>
         {children}
