@@ -29,7 +29,12 @@ export default function Books(){
                 (<section className="inline-block flex space-x-10 p-2 m-7" key={book.books_id}>
                     <div>
                         <img className="w-60 h-60 rounded-3xl" src={book.url} alt={book.title}></img>
-                        <h1>{book.title}</h1>
+                          <div className="font-mono m-2">
+                            <h1 className="font-bold ">{book.title}</h1>
+                            <p>Requirements: {book.requirements}</p>
+                            <button className="font-bold mx-auto block border 
+                            border-black rounded-lg px-4 py-2 my-2 bg-green-700">Trade</button>
+                          </div>
                     </div>
                 </section>))}
           </div>  
