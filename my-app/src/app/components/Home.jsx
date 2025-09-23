@@ -24,12 +24,12 @@ export default function Books(){
 
     return (
         <>
-          <div className="inline-block flex space-x-10 p-5 border">
+          <div className="inline-block flex space-x-10 p-10">
                 {books.map((book) => 
-                (<section className="inline-block flex space-x-10 p-20 m-10
+                (<section className="inline-block flex space-x-10 p-15 m-10
                                 border" key={book.books_id}>
                     <div>
-                        <img className="w-20 h-20" src={`data:image/png;base64,${book.image}`} alt={book.title}></img>
+                        <img className="w-15 h-15" src={book.url} alt={book.title}></img>
                         <h1>{book.title}</h1>
                     </div>
                 </section>))}
