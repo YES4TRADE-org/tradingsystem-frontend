@@ -33,7 +33,7 @@ export default function Books(){
                             <h1 className="font-bold ">{book.title}</h1>
                             <p>Requirements: {book.requirements}</p>
                             <button className="font-bold mx-auto block border 
-                            border-black rounded-lg px-4 py-2 my-2 bg-green-700">Trade</button>
+                            border-black rounded-lg px-4 py-2 my-2 bg-green-700 cursor-pointer">Trade</button>
                           </div>
                     </div>
                 </section>))}
