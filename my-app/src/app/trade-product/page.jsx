@@ -35,66 +35,64 @@ export default function Trade(){
     }
 
     const handlePost = () => {
-        const formData = new FormData();
-        formData.append('image', picture);
+        const formData1 = new FormData();
+        formData1.append("image", picture); 
+        formData1.append("title", productName);
+        formData1.append("methods", method);
+        formData1.append("email", email);
+        formData1.append("studentId", studentId);
+        formData1.append("program", program);
+        formData1.append("type", type);
+        formData1.append("requirement", requirement);
 
-      if(method === 'Trade') {
-        useEffect(() => {
-            fetch('http://locahost:5000/yes4trade/upload-trade', {
-                method: 'POST',
-                body: {
-                    formData,
-                    title: productName,
-                    requirements: requirement,
-                    methods: method,
-                    email: email,
-                    studentId: studentId,
-                    program: program,
-                    type: type,
-                }
-            })
-            .then(res => {
-                if(!res.ok){
-                    throw new Error('Error! Cannot fetch due to errors')
-                }
-                return res.json();
-            })
-            .then(json => {
-                console.log('Fetched: ', json);
-            })
-            .catch(err => {
-                console.error(err);
-            })
-        }, []);
-      } else {
-        useEffect(() => {
-            fetch('http://locahost:5000/yes4trade/upload-sell', {
-                method: 'POST',
-                body: {
-                    formData,
-                    title: productName,
-                    methods: method,
-                    email: email,
-                    studentId: studentId,
-                    program: program,
-                    type: type,
-                    price: price
-                }
-            })
-            .then(res => {
-                if(!res.ok){
-                    throw new Error('Error! Cannot fetch due to errors')
-                }
-                return res.json();
-            })
-            .then(json => {
-                console.log('Fetched: ', json);
-            })
-            .catch(err => {
-                console.error(err);
-            })
-        }, []);
-      }
+        console.log(formData1);
+
+        const formData2 = new FormData();
+            formData2.append("image", picture);
+            formData2.append("title", productName);
+            formData2.append("methods", method);
+            formData2.append("email", email);
+            formData2.append("studentId", studentId);
+            formData2.append("program", program);
+            formData2.append("type", type);
+            formData2.append("price", price);
+
+            if(method === 'Trade') {
+                fetch('http://localhost:5000/yes4trade/upload-trade', {
+                    method: 'POST',
+                    body: formData1
+                })
+                .then(res => {
+                    if(!res.ok){
+                        throw new Error('Error! Cannot fetch due to errors')
+                    }
+                    return res.json();
+                })
+                .then(json => {
+                    console.log('Fetched: ', json);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+          } else {
+                fetch('http://localhost:5000/yes4trade/upload-sell', {
+                    method: 'POST',
+                    body: formData2
+                })
+                .then(res => {
+                    if(!res.ok){
+                        throw new Error('Error! Cannot fetch due to errors')
+                    }
+                    return res.json();
+                })
+                .then(json => {
+                    console.log('Fetched: ', json);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            }
+                
     }
     
     return (
