@@ -2,6 +2,15 @@
 import { useState } from "react";
 
 export default function Trade(){
+    const [email, setEmail] = useState("");
+    const [studentId, setStudentId] = useState("");
+    const [program, setProgram] = useState("");
+    const [type, setType] = useState("");
+    const [method, setMethod] = useState("");
+    const [productName, setProductName] = useState("");
+    const [requirement, setRequirement] = useState("");
+    const [price, setPrice] = useState("");
+    const [picture, setPicture] = useState(null);
 
     const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
                                             Desire Trade
@@ -9,38 +18,71 @@ export default function Trade(){
                                          <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                                             placeholder='Enter your trade requirements' required></input></>);
     const handleMethodChange = (e) => {
+        setMethod(e.target.value);
         if(e.target.value === "Trade"){
             return setOption(<><h1 className="text-3xl mb-4 font-bold">
                                             Desire Trade
                                          </h1>
-                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                                             placeholder='Enter your trade requirements' required></input></>);
         } else if(e.target.value === "Sell"){
             return setOption(<><h1 className="text-3xl mb-4 font-bold">
                             Price
                          </h1>
-                         <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                         <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                             placeholder='Enter your price rate ₱' required></input></>);
         }
     }
 
+    const handlePost = () => {
+        console.log(email, studentId, program, type, method, productName, requirement, price, picture);
+    }
     return (
         <>
             <main className="grid grid-cols-2 gap-1 m-10">
                 <section>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Email: </h1>
-                        <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                        <input onChange={(e) => setEmail(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                             type='email' placeholder='Enter your email' required></input>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Student ID: </h1>
-                        <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                        <input onChange={(e) => setStudentId(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                             placeholder='Enter your student id' required></input>
+                    </div>
+                                        <div className="m-15 px-10 rounded-lg font-mono">
+                        <h1 className="text-3xl mb-4 font-bold">Product Name: </h1>
+                        <input onChange={(e) => setProductName(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                            placeholder='Enter your product name' required></input>
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
+                                {option}
+                    </div>
+                </section>
+                <section>
+                    <div className="m-15 px-10 rounded-lg font-mono">
+                        <h1 className="text-3xl mb-4 font-bold">Type: </h1>
+                        <select onChange={(e) => setType(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
+                            placeholder='Enter your student id' required>
+                            <option value="" disabled selected>Select product type</option>
+                            <option value="Notes">Notes</option>
+                            <option value="Books">Books</option>
+                            <option value="Uniform">Uniform</option>
+                        </select>
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
+                        <h1 className="text-3xl mb-4 font-bold">Method: </h1>
+                        <select onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
+                            placeholder='Enter your student id' required>
+                            <option value="" disabled selected>Select desire method</option>
+                            <option value="Sell">Sell</option>
+                            <option value="Trade">Trade</option>
+                        </select>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Program: </h1>
-                        <select className="outline-none border-0 border-b w-100 border-white-500 rounded-sm text-gray-400"
+                        <select onChange={(e) => setProgram(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
                             placeholder='Enter your student id' required>
                             <option value="" disabled selected>Select your program</option>
                             <option value="CEN">Engineering</option>
@@ -53,45 +95,17 @@ export default function Trade(){
                         </select>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Type: </h1>
-                        <select className="outline-none border-0 border-b w-100 border-white-500 rounded-sm text-gray-400"
-                            placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select product type</option>
-                            <option value="Notes">Notes</option>
-                            <option value="Books">Books</option>
-                            <option value="Uniform">Uniform</option>
-                        </select>
-                    </div>
-                </section>
-                <section>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Method: </h1>
-                        <select onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm text-gray-400"
-                            placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select desire method</option>
-                            <option value="Sell">Sell</option>
-                            <option value="Trade">Trade</option>
-                        </select>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Product Name: </h1>
-                        <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your product name' required></input>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                                {option}
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Upload Picture: </h1>
-                        <input type="file" className="file:mr-4 
-                        text-gray-400 cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                        <input onChange={(e) => setPicture(e.target.files[0])} type="file" className="file:mr-4 bg-gray-600
+                        cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                          required></input>
                     </div>
                 </section>
-                <div>
-                    <button type="submit" className="font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl">Post</button>
-                </div>
             </main>
+                <div>
+                    <button onClick={handlePost} type="submit" className="font-mono absolute right-150 top-185 
+                    cursor-pointer font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl">Post</button>
+                </div>
         </>
     );
 }
