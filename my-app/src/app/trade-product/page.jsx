@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Trade(){
     const [email, setEmail] = useState("");
@@ -117,12 +117,7 @@ export default function Trade(){
                             placeholder='Enter your product name' required></input>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                                {option}
-                    </div>
-                </section>
-                <section>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Type: </h1>
+                        <h1 className="text-3xl mb-4 font-bold">Type of the Product: </h1>
                         <select onChange={(e) => setType(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
                             placeholder='Enter your student id' required>
                             <option value="" disabled selected>Select product type</option>
@@ -131,6 +126,8 @@ export default function Trade(){
                             <option value="Uniform">Uniform</option>
                         </select>
                     </div>
+                </section>
+                <section>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Method: </h1>
                         <select onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
@@ -139,6 +136,9 @@ export default function Trade(){
                             <option value="Sell">Sell</option>
                             <option value="Trade">Trade</option>
                         </select>
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
+                                {option}
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Program: </h1>
