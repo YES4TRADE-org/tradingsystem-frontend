@@ -1,4 +1,29 @@
+"use client";
+import { useState } from "react";
+
 export default function Trade(){
+
+    const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
+                                            Desire Trade
+                                         </h1>
+                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                                            placeholder='Enter your trade requirements' required></input></>);
+    const handleMethodChange = (e) => {
+        if(e.target.value === "Trade"){
+            return setOption(<><h1 className="text-3xl mb-4 font-bold">
+                                            Desire Trade
+                                         </h1>
+                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                                            placeholder='Enter your trade requirements' required></input></>);
+        } else if(e.target.value === "Sell"){
+            return setOption(<><h1 className="text-3xl mb-4 font-bold">
+                            Price
+                         </h1>
+                         <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                            placeholder='Enter your price rate ₱' required></input></>);
+        }
+    }
+
     return (
         <>
             <main className="grid grid-cols-2 gap-1 m-10">
@@ -41,24 +66,31 @@ export default function Trade(){
                 <section>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Method: </h1>
-                        <select className="outline-none border-0 border-b w-100 border-white-500 rounded-sm text-gray-400"
+                        <select onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm text-gray-400"
                             placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select product type</option>
+                            <option value="" disabled selected>Select desire method</option>
                             <option value="Sell">Sell</option>
                             <option value="Trade">Trade</option>
                         </select>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Product name: </h1>
+                        <h1 className="text-3xl mb-4 font-bold">Product Name: </h1>
                         <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your student id' required></input>
+                            placeholder='Enter your product name' required></input>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Student ID: </h1>
-                        <input className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your student id' required></input>
+                                {option}
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
+                        <h1 className="text-3xl mb-4 font-bold">Upload Picture: </h1>
+                        <input type="file" className="file:mr-4 
+                        text-gray-400 cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                         required></input>
                     </div>
                 </section>
+                <div>
+                    <button type="submit" className="font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl">Post</button>
+                </div>
             </main>
         </>
     );
