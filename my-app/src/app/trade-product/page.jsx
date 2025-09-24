@@ -38,13 +38,41 @@ export default function Trade(){
         const formData = new FormData();
         formData.append('image', picture);
 
+      if(method === 'Trade') {
         useEffect(() => {
-            fetch('http://locahost:5000/yes4trade/upload', {
+            fetch('http://locahost:5000/yes4trade/upload-trade', {
                 method: 'POST',
                 body: {
                     formData,
                     title: productName,
                     requirements: requirement,
+                    methods: method,
+                    email: email,
+                    studentId: studentId,
+                    program: program,
+                    type: type,
+                }
+            })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error('Error! Cannot fetch due to errors')
+                }
+                return res.json();
+            })
+            .then(json => {
+                console.log('Fetched: ', json);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        }, []);
+      } else {
+        useEffect(() => {
+            fetch('http://locahost:5000/yes4trade/upload-sell', {
+                method: 'POST',
+                body: {
+                    formData,
+                    title: productName,
                     methods: method,
                     email: email,
                     studentId: studentId,
@@ -66,6 +94,7 @@ export default function Trade(){
                 console.error(err);
             })
         }, []);
+      }
     }
     
     return (
