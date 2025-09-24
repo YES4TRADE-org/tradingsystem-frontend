@@ -35,8 +35,39 @@ export default function Trade(){
     }
 
     const handlePost = () => {
-        console.log(email, studentId, program, type, method, productName, requirement, price, picture);
+        const formData = new FormData();
+        formData.append('image', picture);
+
+        useEffect(() => {
+            fetch('http://locahost:5000/yes4trade/upload', {
+                method: 'POST',
+                body: {
+                    formData,
+                    title: productName,
+                    requirements: requirement,
+                    methods: method,
+                    email: email,
+                    studentId: studentId,
+                    program: program,
+                    type: type,
+                    price: price
+                }
+            })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error('Error! Cannot fetch due to errors')
+                }
+                return res.json();
+            })
+            .then(json => {
+                console.log('Fetched: ', json);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        }, []);
     }
+    
     return (
         <>
             <main className="grid grid-cols-2 gap-1 m-10">
