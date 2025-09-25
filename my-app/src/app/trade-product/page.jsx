@@ -19,19 +19,7 @@ export default function Trade(){
                                             placeholder='Enter your trade requirements' required></input></>);
     const handleMethodChange = (e) => {
         setMethod(e.target.value);
-        if(e.target.value === "Trade"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
-        } else if(e.target.value === "Sell"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                            Price
-                         </h1>
-                         <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your price rate ₱' required></input></>);
-        }
+        methods(e.target.value);
     }
 
     const handlePost = () => {
@@ -170,4 +158,20 @@ export default function Trade(){
                 </div>
         </>
     );
+}
+
+function methods(value){
+    if(value === "Trade"){
+        return setOption(<><h1 className="text-3xl mb-4 font-bold">
+                                        Desire Trade
+                                        </h1>
+                                        <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                                        placeholder='Enter your trade requirements' required></input></>);
+    } else if(e.target.value === "Sell"){
+        return setOption(<><h1 className="text-3xl mb-4 font-bold">
+                        Price
+                        </h1>
+                        <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                        placeholder='Enter your price rate ₱' required></input></>);
+    }
 }

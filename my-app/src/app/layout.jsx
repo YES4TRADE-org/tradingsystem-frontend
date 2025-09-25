@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FaShoppingCart } from "react-icons/fa";
@@ -34,13 +35,13 @@ export default function RootLayout({ children }) {
             </select>
           </div>
           <div className="p-1 rounded-lg font-mono absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-20 border font-bold">
-            <h2 className="text-2xl">YES4TRADE</h2>
+            <Link href="/" className="text-2xl cursor-pointer" >YES4TRADE</Link>
             <div className="font-mono flex items-center space-x-8 font-bold">
               <p>Books</p>
               <p>Notes</p>
               <p>Uniforms</p>
             </div>
-            <h2 className="border bg-green-300 rounded-lg py-1 px-2 text-black">Let's Trade</h2>
+            <Link href="/trade-product" className="border bg-green-300 rounded-lg py-1 px-2 text-black cursor-pointer">Let's Trade</Link>
           </div>
           <div className="justify-between space-x-55
           ">
@@ -48,7 +49,9 @@ export default function RootLayout({ children }) {
             <CgProfile className="inline-block rounded-sm text-white w-13 h-13 p-2"/>
           </div>
         </header>
+        <main>
         {children}
+        </main>
       </body>
     </html>
   );
