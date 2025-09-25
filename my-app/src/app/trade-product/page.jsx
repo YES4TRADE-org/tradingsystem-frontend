@@ -46,6 +46,7 @@ export default function Trade(){
         formData1.append("requirement", requirement);
 
         console.log(formData1);
+        console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
 
         const formData2 = new FormData();
             formData2.append("image", picture);
@@ -58,7 +59,7 @@ export default function Trade(){
             formData2.append("price", price);
 
             if(method === 'Trade') {
-                fetch(`${file.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
                     method: 'POST',
                     body: formData1
                 })
@@ -75,7 +76,7 @@ export default function Trade(){
                     console.error(err);
                 });
           } else {
-                fetch(`${file.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
                     method: 'POST',
                     body: formData2
                 })
