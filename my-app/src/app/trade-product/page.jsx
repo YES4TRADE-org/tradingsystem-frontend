@@ -1,4 +1,5 @@
 "use client";
+import { headers } from "next/headers";
 import { useState, useEffect } from "react";
 
 export default function Trade(){
@@ -12,88 +13,58 @@ export default function Trade(){
     const [price, setPrice] = useState("");
     const [picture, setPicture] = useState(null);
 
-    const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
-    const handleMethodChange = (e) => {
-        setMethod(e.target.value);
-        if(e.target.value === "Trade"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
-        } else if(e.target.value === "Sell"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                            Price
-                         </h1>
-                         <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your price rate ₱' required></input></>);
-        }
-    }
-
-    const handlePost = () => {
-        const formData1 = new FormData();
-        formData1.append("image", picture); 
-        formData1.append("title", productName);
-        formData1.append("methods", method);
-        formData1.append("email", email);
-        formData1.append("studentId", studentId);
-        formData1.append("program", program);
-        formData1.append("type", type);
-        formData1.append("requirement", requirement);
-
-        console.log(formData1);
+    const handlePost = async () => {
+        //define a body once, then append common values
+        const requestBody = new FormData();
+        requestBody.append("image", picture); 
+        requestBody.append("title", productName);
+        requestBody.append("methods", method);
+        requestBody.append("email", email);
+        requestBody.append("studentId", studentId);
+        requestBody.append("program", program);
+        requestBody.append("type", type);
+        
+        console.log(requestBody);
         console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
-
-        const formData2 = new FormData();
-            formData2.append("image", picture);
-            formData2.append("title", productName);
-            formData2.append("methods", method);
-            formData2.append("email", email);
-            formData2.append("studentId", studentId);
-            formData2.append("program", program);
-            formData2.append("type", type);
-            formData2.append("price", price);
-
+        
+        
+        try {
             if(method === 'Trade') {
-                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
-                    method: 'POST',
-                    body: formData1
-                })
-                .then(res => {
-                    if(!res.ok){
-                        throw new Error('Error! Cannot fetch due to errors')
-                    }
-                    return res.json();
-                })
-                .then(json => {
-                    console.log('Fetched: ', json);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-          } else {
-                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
-                    method: 'POST',
-                    body: formData2
-                })
-                .then(res => {
-                    if(!res.ok){
-                        throw new Error('Error! Cannot fetch due to errors')
-                    }
-                    return res.json();
-                })
-                .then(json => {
-                    console.log('Fetched: ', json);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-            }
+                // append requirement if trade method is selected
+                requestBody.append("requirement", requirement);
                 
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
+                        method: "POST",
+                        body: requestBody
+                    }
+                );
+                
+                if (!response.ok) throw new Error('Error! Cannot fetch due to errors');
+                
+                const json = await response.json();
+                
+                console.log(json);
+                
+            } else {
+                // append price if not using trade method
+                requestBody.append("price", price);
+
+                const response = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
+                    method: "POST",
+                    body: requestBody
+                });
+
+                if (!response.ok) throw new Error('Error! Cannot fetch due to errors');
+
+                const json = await response.json();
+                
+                console.log(json);
+            }
+
+        } catch (e) {
+            console.error(e);
+        }
     }
     
     return (
@@ -131,7 +102,7 @@ export default function Trade(){
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <label htmlFor="method" className="sr-only">Methods</label>
                         <h1 className="text-3xl mb-4 font-bold">Method: </h1>
-                        <select id="method" onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
+                        <select id="method" onChange={e => setMethod(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
                             placeholder='Enter your student id' required>
                             <option value="" disabled selected>Select desire method</option>
                             <option value="Sell">Sell</option>
@@ -139,7 +110,11 @@ export default function Trade(){
                         </select>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                                {option}
+                        <OptionForm
+                            method={method}
+                            setPrice={setPrice}
+                            setRequirement={setRequirement}
+                        />
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <label htmlFor="program" className="sr-only">Programs</label>
@@ -170,4 +145,49 @@ export default function Trade(){
                 </div>
         </>
     );
+}
+
+function OptionForm({method, setRequirement, setPrice}){
+    switch (method) {
+        case "Trade":
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Desire Trade
+                </h1>
+                <input
+                    onChange={(e) => setRequirement(e.target.value)}
+                    className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your trade requirements' required
+                />
+                </>
+            );
+        
+        case "Sell":
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Price
+                </h1>
+                <input
+                    onChange={(e) => setPrice(e.target.value)}
+                    className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your price rate ₱' required
+                />
+                </>
+
+            );
+
+        default:
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Desire Trade
+                </h1>
+                <input
+                    className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your trade requirements' required />
+                </>
+            );
+    }
 }
