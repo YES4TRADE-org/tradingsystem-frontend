@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Trade(){
     const [email, setEmail] = useState("");
@@ -15,11 +16,11 @@ export default function Trade(){
     const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
                                             Desire Trade
                                          </h1>
-                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                                             placeholder='Enter your trade requirements' required></input></>);
     const handleMethodChange = (e) => {
         setMethod(e.target.value);
-        methods(e.target.value, setOption);
+        methods(e.target.value, setOption, setPrice, setRequirement);
     }
 
     const handlePost = () => {
@@ -31,6 +32,7 @@ export default function Trade(){
             formData1.append("studentId", studentId);
             formData1.append("program", program);
             formData1.append("type", type);
+            formData1.append("requirement", requirement);
 
         const formData2 = new FormData();
             formData2.append("image", picture);
@@ -149,15 +151,17 @@ export default function Trade(){
                 </section>
             </main>
                 <div>
-                    <button onClick={handlePost} type="submit" className="font-mono absolute right-150 top-185 
+                    <Link href="/" onClick={handlePost}>
+                    <button type="submit" className="font-mono absolute right-150 top-185 
                     cursor-pointer font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl">Post</button>
+                    </Link>
                 </div>
         </>
     );
 }
 
 
-function methods(value, setOption){
+function methods(value, setOption, setPrice, setRequirement){
     if(value === "Trade"){
         return setOption(<><h1 className="text-3xl mb-4 font-bold">
                                         Desire Trade
