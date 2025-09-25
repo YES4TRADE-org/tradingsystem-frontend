@@ -19,22 +19,18 @@ export default function Trade(){
                                             placeholder='Enter your trade requirements' required></input></>);
     const handleMethodChange = (e) => {
         setMethod(e.target.value);
-        methods(e.target.value);
+        methods(e.target.value, setOption);
     }
 
     const handlePost = () => {
         const formData1 = new FormData();
-        formData1.append("image", picture); 
-        formData1.append("title", productName);
-        formData1.append("methods", method);
-        formData1.append("email", email);
-        formData1.append("studentId", studentId);
-        formData1.append("program", program);
-        formData1.append("type", type);
-        formData1.append("requirement", requirement);
-
-        console.log(formData1);
-        console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
+            formData1.append("image", picture); 
+            formData1.append("title", productName);
+            formData1.append("methods", method);
+            formData1.append("email", email);
+            formData1.append("studentId", studentId);
+            formData1.append("program", program);
+            formData1.append("type", type);
 
         const formData2 = new FormData();
             formData2.append("image", picture);
@@ -160,14 +156,15 @@ export default function Trade(){
     );
 }
 
-function methods(value){
+
+function methods(value, setOption){
     if(value === "Trade"){
         return setOption(<><h1 className="text-3xl mb-4 font-bold">
                                         Desire Trade
                                         </h1>
                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                                         placeholder='Enter your trade requirements' required></input></>);
-    } else if(e.target.value === "Sell"){
+    } else if(value === "Sell"){
         return setOption(<><h1 className="text-3xl mb-4 font-bold">
                         Price
                         </h1>
