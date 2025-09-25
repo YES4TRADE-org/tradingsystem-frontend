@@ -6,7 +6,7 @@ export default function Books(){
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/yes4trade/getbooks")
+        fetch(`${file.env.NEXT_PUBLIC_API_URL}/yes4trade/getbooks`)
         .then((res) => {
             if (!res.ok) {
             throw new Error("Error! Cannot get books");
