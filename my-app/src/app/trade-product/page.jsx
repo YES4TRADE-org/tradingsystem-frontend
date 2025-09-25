@@ -1,5 +1,4 @@
 "use client";
-import { headers } from "next/headers";
 import { useState, useEffect } from "react";
 
 export default function Trade(){
