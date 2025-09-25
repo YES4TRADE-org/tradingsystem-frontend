@@ -12,28 +12,6 @@ export default function Trade(){
     const [price, setPrice] = useState("");
     const [picture, setPicture] = useState(null);
 
-    const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
-    const handleMethodChange = (e) => {
-        setMethod(e.target.value);
-        if(e.target.value === "Trade"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
-        } else if(e.target.value === "Sell"){
-            return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                            Price
-                         </h1>
-                         <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your price rate ₱' required></input></>);
-        }
-    }
-
     const handlePost = () => {
         const formData1 = new FormData();
         formData1.append("image", picture); 
@@ -131,7 +109,7 @@ export default function Trade(){
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <label htmlFor="method" className="sr-only">Methods</label>
                         <h1 className="text-3xl mb-4 font-bold">Method: </h1>
-                        <select id="method" onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
+                        <select id="method" onChange={e => setMethod(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
                             placeholder='Enter your student id' required>
                             <option value="" disabled selected>Select desire method</option>
                             <option value="Sell">Sell</option>
@@ -139,7 +117,11 @@ export default function Trade(){
                         </select>
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                                {option}
+                        <OptionForm
+                            method={method}
+                            setPrice={setPrice}
+                            setRequirement={setRequirement}
+                        />
                     </div>
                     <div className="m-15 px-10 rounded-lg font-mono">
                         <label htmlFor="program" className="sr-only">Programs</label>
@@ -170,4 +152,49 @@ export default function Trade(){
                 </div>
         </>
     );
+}
+
+function OptionForm({method, setRequirement, setPrice}){
+    switch (method) {
+        case "Trade":
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Desire Trade
+                </h1>
+                <input
+                    onChange={(e) => setRequirement(e.target.value)}
+                    className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your trade requirements' required
+                />
+                </>
+            );
+        
+        case "Sell":
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Price
+                </h1>
+                <input
+                    onChange={(e) => setPrice(e.target.value)}
+                    className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your price rate ₱' required
+                />
+                </>
+
+            );
+
+        default:
+            return (
+                <>
+                <h1 className="text-3xl mb-4 font-bold">
+                    Desire Trade
+                </h1>
+                <input
+                    className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your trade requirements' required />
+                </>
+            );
+    }
 }
