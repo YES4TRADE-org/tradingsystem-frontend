@@ -24,30 +24,23 @@ export default function Trade(){
     }
 
     const handlePost = () => {
-        const formData1 = new FormData();
-            formData1.append("image", picture); 
-            formData1.append("title", productName);
-            formData1.append("methods", method);
-            formData1.append("email", email);
-            formData1.append("studentId", studentId);
-            formData1.append("program", program);
-            formData1.append("type", type);
-            formData1.append("requirement", requirement);
+        const formData = new FormData();
+            formData.append("image", picture); 
+            formData.append("title", productName);
+            formData.append("methods", method);
+            formData.append("email", email);
+            formData.append("studentId", studentId);
+            formData.append("program", program);
+            formData.append("type", type);
 
-        const formData2 = new FormData();
-            formData2.append("image", picture);
-            formData2.append("title", productName);
-            formData2.append("methods", method);
-            formData2.append("email", email);
-            formData2.append("studentId", studentId);
-            formData2.append("program", program);
-            formData2.append("type", type);
-            formData2.append("price", price);
 
             if(method === 'Trade') {
+                
+                formData.append("requirement", requirement);
+
                 fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
                     method: 'POST',
-                    body: formData1
+                    body: formData
                 })
                 .then(res => {
                     if(!res.ok){
@@ -62,9 +55,12 @@ export default function Trade(){
                     console.error(err);
                 });
           } else {
+                
+                formData.append("price", price);
+
                 fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
                     method: 'POST',
-                    body: formData2
+                    body: formData
                 })
                 .then(res => {
                     if(!res.ok){
@@ -96,7 +92,7 @@ export default function Trade(){
                         <input onChange={(e) => setStudentId(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                             placeholder='Enter your student id' required></input>
                     </div>
-                                        <div className="m-15 px-10 rounded-lg font-mono">
+                    <div className="m-15 px-10 rounded-lg font-mono">
                         <h1 className="text-3xl mb-4 font-bold">Product Name: </h1>
                         <input onChange={(e) => setProductName(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
                             placeholder='Enter your product name' required></input>
