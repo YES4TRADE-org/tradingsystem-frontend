@@ -5,6 +5,11 @@ import { useState, useEffect } from "react";
 export default function Books(){
     const [items, setItems] = useState([]);
 
+    const methods = (method, type1, type2) => {
+        if(method === 2) return <p>Price: ₱{type2}</p>;
+        return <p>Requirements: {type1}</p>
+    }
+
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/getbooks`)
         .then((res) => {
@@ -22,13 +27,7 @@ export default function Books(){
         });
     }, []);
 
-    const methods = (method, type1, type2) => {
-        console.log(type1);
-        if(method === 2) return <p>Price: ₱{type2}</p>;
-        return <p>Requirements: {type1}</p>
-    }
-
-    return (
+     return (
         <>
           <div className="inline-block flex px-12">
                 {items.map((item) => 

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Input from "../components/Input.jsx";
 import Link from "next/link";
 import Button from "../components/Button.jsx";
-import { SelectProduct, SelectMethod, SelectCollege } from "../components/Select.jsx"
+import { SelectProduct, SelectMethod, SelectCollege } from "../components/Select.jsx";
 
 
 export default function Trade(){
@@ -54,7 +54,7 @@ export default function Trade(){
                     return res.json();
                 })
                 .then(json => {
-                    console.log('Fetched: ', json);
+                    console.log("Fetched: ", json);
                 })
                 .catch(err => {
                     console.error(err);
