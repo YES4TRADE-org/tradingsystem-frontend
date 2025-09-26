@@ -1,6 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import Input from "../components/Input.jsx";
 import Link from "next/link";
+import Button from "../components/Button.jsx";
+import { SelectProduct, SelectMethod, SelectCollege } from "../components/Select.jsx"
+
 
 export default function Trade(){
     const [email, setEmail] = useState("");
@@ -33,9 +37,10 @@ export default function Trade(){
             formData.append("program", program);
             formData.append("type", type);
 
+            console.log(method);
 
             if(method === 'Trade') {
-                
+                console.log(picture);
                 formData.append("requirement", requirement);
 
                 fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
@@ -63,6 +68,7 @@ export default function Trade(){
                     body: formData
                 })
                 .then(res => {
+                    console.log(res.status);
                     if(!res.ok){
                         throw new Error('Error! Cannot fetch due to errors')
                     }
@@ -82,75 +88,23 @@ export default function Trade(){
         <>
             <main className="grid grid-cols-2 gap-1 m-10">
                 <section>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Email: </h1>
-                        <input onChange={(e) => setEmail(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            type='email' placeholder='Enter your email' required></input>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Student ID: </h1>
-                        <input onChange={(e) => setStudentId(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your student id' required></input>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Product Name: </h1>
-                        <input onChange={(e) => setProductName(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                            placeholder='Enter your product name' required></input>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <label htmlFor="type" className="sr-only">Type of Products</label>
-                        <h1 className="text-3xl mb-4 font-bold">Type of the Product: </h1>
-                        <select id="type" onChange={(e) => setType(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
-                            placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select product type</option>
-                            <option value="Notes">Notes</option>
-                            <option value="Books">Books</option>
-                            <option value="Uniform">Uniform</option>
-                        </select>
-                    </div>
+                    <Input type="email" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setEmail(e.target.value)} label="Email: " placeholder="Enter your email" />
+                    <Input type="text" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setStudentId(e.target.value)} label="Student ID: " placeholder="Enter your Student ID"/>
+                    <Input type="text" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setProductName(e.target.value)} label="Product Name" placeholder="Enter the product name" />
+                    <SelectProduct onChange={(e) => setType(e.target.value)}/>
                 </section>
                 <section>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <label htmlFor="method" className="sr-only">Methods</label>
-                        <h1 className="text-3xl mb-4 font-bold">Method: </h1>
-                        <select id="method" onChange={handleMethodChange} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
-                            placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select desire method</option>
-                            <option value="Sell">Sell</option>
-                            <option value="Trade">Trade</option>
-                        </select>
-                    </div>
+                    <SelectMethod onChange={handleMethodChange}/>
                     <div className="m-15 px-10 rounded-lg font-mono">
                                 {option}
                     </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <label htmlFor="program" className="sr-only">Programs</label>
-                        <h1 className="text-3xl mb-4 font-bold">Program: </h1>
-                        <select id="program" onChange={(e) => setProgram(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm bg-gray-600"
-                            placeholder='Enter your student id' required>
-                            <option value="" disabled selected>Select your program</option>
-                            <option value="CEN">Engineering</option>
-                            <option value="CAS">Arts and Sciences</option>
-                            <option value="CAG">Agriculture</option>
-                            <option value="CIT">Industrial Technology</option>
-                            <option value="CTE">Teacher Education</option>
-                            <option value="CABHA">Administration, Business, Hospitality and Accountancy</option>
-                            <option value="CAM">Allied Medicine</option>
-                        </select>
-                    </div>
-                    <div className="m-15 px-10 rounded-lg font-mono">
-                        <h1 className="text-3xl mb-4 font-bold">Upload Picture: </h1>
-                        <input onChange={(e) => setPicture(e.target.files[0])} type="file" className="file:mr-4 bg-gray-600
-                        cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                         required></input>
-                    </div>
+                    <SelectCollege onChange={(e) => setProgram(e.target.value)} />
+                    <Input type="file" label="Upload Picture: " onChange={(e) => setPicture(e.target.files[0])} className="file:mr-4 bg-gray-600
+                        cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm" />
                 </section>
             </main>
                 <div>
-                    <Link href="/" onClick={handlePost}>
-                    <button type="submit" className="font-mono absolute right-150 top-185 
-                    cursor-pointer font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl">Post</button>
-                    </Link>
+                    <Button onClick={handlePost}/>
                 </div>
         </>
     );
