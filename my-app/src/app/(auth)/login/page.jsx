@@ -1,7 +1,14 @@
+"use client";
+
 import { IoLogInOutline } from "react-icons/io5";
 import { RiAccountCircle2Line } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import Input from "../../components/Input.jsx";
+import Button from "../../components/Button.jsx";
 
 export default function Login(){
+    const [username, setUsername] = useState("");
+    const [password, setPassowrd] = useState("");
 
     const error = () => {
         
@@ -19,17 +26,17 @@ export default function Login(){
                 <h1 className="text-3xl">Welcome!</h1>
                 <p className="text-sm">Please enter your details to login</p>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <label >Enter your email: </label>
-                    <input className="border  rounded-lg py-1 px-2 w-90 text-xs mt-2" type="email" placeholder="Enter your SLSU email"></input>
+                    <Input label="Enter your Email: " onChange={(e) => setUsername(e.target.value)} className="border  rounded-lg py-1 px-2 w-90 text-xs mt-2"
+                    type="email" placeholder="Enter you SLSU email" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <label >Enter your password: </label>
-                    <input className="border  rounded-lg py-1 px-2 w-90 text-xs mt-2" type="email" placeholder="Enter your password"></input>
+                    <Input className="border  rounded-lg py-1 px-2 w-90 text-xs mt-2" type="text" placeholder="Enter your password"
+                    onChange={(e) => setPassowrd(e.target.value)} label="Enter your Password" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
-                    <button className="border bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90">Login</button>
+                    <Button className="border bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
                 </div>
                 <p className="text-sm mt-10">Forgot password? </p>
             </div>

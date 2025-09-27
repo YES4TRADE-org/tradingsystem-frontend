@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import Input from "../components/Input.jsx";
+import Input from "../../components/Input.jsx";
 import Link from "next/link";
-import Button from "../components/Button.jsx";
-import { SelectProduct, SelectMethod, SelectCollege } from "../components/Select.jsx";
+import Button from "../../components/Button.jsx";
+import { SelectProduct, SelectMethod, SelectCollege } from "../../components/Select.jsx";
 
 
 export default function Trade(){
@@ -88,9 +88,15 @@ export default function Trade(){
         <>
             <main className="grid grid-cols-2 gap-1 m-10">
                 <section>
+                    <div className="m-15 px-10 rounded-lg font-mono">
                     <Input type="email" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setEmail(e.target.value)} label="Email: " placeholder="Enter your email" />
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
                     <Input type="text" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setStudentId(e.target.value)} label="Student ID: " placeholder="Enter your Student ID"/>
+                    </div>
+                    <div className="m-15 px-10 rounded-lg font-mono">
                     <Input type="text" className="outline-none border-0 border-b w-100 border-white-500 rounded-sm" onChange={(e) => setProductName(e.target.value)} label="Product Name" placeholder="Enter the product name" />
+                    </div>
                     <SelectProduct onChange={(e) => setType(e.target.value)}/>
                 </section>
                 <section>
@@ -99,12 +105,18 @@ export default function Trade(){
                                 {option}
                     </div>
                     <SelectCollege onChange={(e) => setProgram(e.target.value)} />
+                    <div className="m-15 px-10 rounded-lg font-mono">
                     <Input type="file" label="Upload Picture: " onChange={(e) => setPicture(e.target.files[0])} className="file:mr-4 bg-gray-600
                         cursor-pointer file:hidden outline-none border-0 border-b w-100 border-white-500 rounded-sm" />
+                    </div>
                 </section>
             </main>
                 <div>
-                    <Button onClick={handlePost}/>
+                    <Link href="/">
+                    <Button onClick={handlePost} className="font-mono absolute right-150 top-185 
+                    cursor-pointer font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl" type="submit"
+                    label="Post"/>
+                    </Link>
                 </div>
         </>
     );
