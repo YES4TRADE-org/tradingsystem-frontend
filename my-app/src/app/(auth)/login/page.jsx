@@ -5,6 +5,7 @@ import { RiAccountCircle2Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import Input from "../../components/Input.jsx";
 import Button from "../../components/Button.jsx";
+import Link from "next/link";
 
 export default function Login(){
     const [username, setUsername] = useState("");
@@ -38,7 +39,9 @@ export default function Login(){
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
                     <Button className="border bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
                 </div>
-                <p className="text-sm mt-10">Forgot password? </p>
+                <Link href="/sign-up">
+                <p className="text-sm mt-10 cursor-pointer">Forgot password? </p>
+                </Link>
             </div>
             <img className="w-full h-full rounded-lg brightness-75" src='https://res.cloudinary.com/dkacxbbwh/image/upload/v1758947795/slsu_lpnqvl.jpg'></img>
         </section>
