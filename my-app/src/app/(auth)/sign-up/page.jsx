@@ -6,17 +6,11 @@ import { useEffect, useState } from "react";
 import Input from "../../components/Input.jsx";
 import Button from "../../components/Button.jsx";
 import Link from "next/link";
+import { SelectCollege1 } from "@/app/components/Select.jsx";
 
-export default function Login(){
-    const [username, setUsername] = useState("");
-    const [password, setPassowrd] = useState("");
-
-    const error = () => {
-        
-    }
-
-    return <>
-        <section className="border border-gray-600 shadow-[5px_5px_10px_white] rounded-lg bg-gray-600 w-250 h-150 grid grid-cols-2 gap-1 font-mono">
+export default function SignUp(){
+        return <>
+        <section className="border border-gray-600 shadow-[5px_5px_10px_white] rounded-lg bg-gray-600 w-250 h-200 grid grid-cols-2 gap-1 font-mono">
             <div className="flex flex-col justify-center content-center items-center">
                 <div className="flex flex-row justify-center items-center gap-1 mb-5">
                     <IoLogInOutline />
@@ -31,8 +25,18 @@ export default function Login(){
                 <h1 className="text-3xl">Welcome!</h1>
                 <p className="text-sm">Please enter your details to login</p>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <Input label="Enter your Email: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="outline-none border-b rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    <Input label="Enter your Email: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="email" placeholder="Enter you SLSU email" required />
+                    <error />
+                </div>
+                <div className="self-start ml-15 mt-5 flex flex-col text-sm">
+                    <Input label="Enter your Firstname: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    type="text" placeholder="Enter you firstname" required />
+                    <error />
+                </div>
+                <div className="self-start ml-15 mt-5 flex flex-col text-sm">
+                    <Input label="Enter your Lastname: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    type="text" placeholder="Enter you lastname" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
@@ -40,6 +44,7 @@ export default function Login(){
                     onChange={(e) => setPassowrd(e.target.value)} label="Enter your Password: " required />
                     <error />
                 </div>
+                <SelectCollege1 />
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
                     <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
                 </div>

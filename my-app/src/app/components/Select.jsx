@@ -42,3 +42,21 @@ export function SelectCollege(props){
                 </select>
             </div>
     }
+
+export function SelectCollege1(props){
+    return  <div className="self-start ml-15 mt-5 flex flex-col text-sm">
+                <label htmlFor="program" className="sr-only">Programs</label>
+                <h1 className="text-sm">Program: </h1>
+                <select id="program" onChange={props.onChange} className="outline-none border-0 border-b w-90 border-white-500 rounded-sm bg-gray-600"
+                    placeholder='Enter your student id' required>
+                    <option value="" disabled selected>Select your program</option>
+                    <option value="CEN">Engineering</option>
+                    <option value="CAS">Arts and Sciences</option>
+                    <option value="CAG">Agriculture</option>
+                    <option value="CIT">Industrial Technology</option>
+                    <option value="CTE">Teacher Education</option>
+                    <option value="CABHA">Administration, Business, Hospitality and Accountancy</option>
+                    <option value="CAM">Allied Medicine</option>
+                </select>
+            </div>
+    }
