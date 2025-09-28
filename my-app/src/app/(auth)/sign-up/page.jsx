@@ -16,6 +16,32 @@ export default function SignUp(){
     const [lastname, setLastname] = useState('');
     const [password, setPassword] = useState('');
     const [college, setCollege] = useState('');
+
+    const signUp = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/auth/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                studentId: studentId,
+                firstname: firstname,
+                lastname: lastname,
+                password: password,
+                program: college
+            })
+        });
+
+        const data = await response.json();
+
+        if(!response.ok){
+            return alert(data.message);
+        }
+
+        return alert(data.message);
+
+    }
  
         return <>
         <section className="border border-gray-600 shadow-[5px_5px_10px_white] rounded-lg bg-gray-600 w-250 h-200 grid grid-cols-2 gap-1 font-mono">
@@ -53,13 +79,13 @@ export default function SignUp(){
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <Input titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2" type="text" placeholder="Enter your password"
+                    <Input titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2" type="password" placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)} label="Enter your Password: " required />
                     <error />
                 </div>
                 <SelectCollege1 onChange={(e) => setCollege(e.target.value)}/>
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
-                    <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Sign Up" />
+                    <Button onClick={signUp} className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Sign Up" />
                 </div>
             </div>
             <img className="w-full h-full rounded-lg brightness-75" src='https://res.cloudinary.com/dkacxbbwh/image/upload/v1758947795/slsu_lpnqvl.jpg'></img>
