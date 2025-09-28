@@ -31,7 +31,7 @@ export default function SignUp(){
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input label="Enter your Student ID: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
-                    type="email" placeholder="24L-" required />
+                    type="email" placeholder="ex. 24L-00001" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
