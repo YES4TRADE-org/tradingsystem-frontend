@@ -30,6 +30,11 @@ export default function SignUp(){
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
+                    <Input label="Enter your Student ID: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    type="email" placeholder="24L-" required />
+                    <error />
+                </div>
+                <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input label="Enter your Firstname: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="text" placeholder="Enter you firstname" required />
                     <error />
@@ -46,11 +51,8 @@ export default function SignUp(){
                 </div>
                 <SelectCollege1 />
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
-                    <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
+                    <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Sign Up" />
                 </div>
-                <Link href="/forgot-password">
-                <p className="text-sm mt-10 cursor-pointer hover:border-b">Forgot password? </p>
-                </Link>
             </div>
             <img className="w-full h-full rounded-lg brightness-75" src='https://res.cloudinary.com/dkacxbbwh/image/upload/v1758947795/slsu_lpnqvl.jpg'></img>
         </section>
