@@ -9,6 +9,14 @@ import Link from "next/link";
 import { SelectCollege1 } from "@/app/components/Select.jsx";
 
 export default function SignUp(){
+
+    const [username, setUsername] = useState('');
+    const [studentId, setStudentId] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [password, setPassword] = useState('');
+    const [college, setCollege] = useState('');
+ 
         return <>
         <section className="border border-gray-600 shadow-[5px_5px_10px_white] rounded-lg bg-gray-600 w-250 h-200 grid grid-cols-2 gap-1 font-mono">
             <div className="flex flex-col justify-center content-center items-center">
@@ -30,26 +38,26 @@ export default function SignUp(){
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <Input label="Enter your Student ID: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    <Input label="Enter your Student ID: " onChange={(e) => setStudentId(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="email" placeholder="ex. 24L-00001" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <Input label="Enter your Firstname: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    <Input label="Enter your Firstname: " onChange={(e) => setFirstname(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="text" placeholder="Enter you firstname" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
-                    <Input label="Enter your Lastname: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
+                    <Input label="Enter your Lastname: " onChange={(e) => setLastname(e.target.value)} titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="text" placeholder="Enter you lastname" required />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2" type="text" placeholder="Enter your password"
-                    onChange={(e) => setPassowrd(e.target.value)} label="Enter your Password: " required />
+                    onChange={(e) => setPassword(e.target.value)} label="Enter your Password: " required />
                     <error />
                 </div>
-                <SelectCollege1 />
+                <SelectCollege1 onChange={(e) => setCollege(e.target.value)}/>
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
                     <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Sign Up" />
                 </div>
