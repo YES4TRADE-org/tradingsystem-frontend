@@ -16,15 +16,31 @@ export default function Trade(){
     const [requirement, setRequirement] = useState("");
     const [price, setPrice] = useState("");
     const [picture, setPicture] = useState(null);
+    const [option, setOption] = useState('Trade');
 
-    const [option, setOption] = useState(<><h1 className="text-3xl mb-4 font-bold">
-                                            Desire Trade
-                                         </h1>
-                                         <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                            placeholder='Enter your trade requirements' required></input></>);
     const handleMethodChange = (e) => {
         setMethod(e.target.value);
-        methods(e.target.value, setOption, setPrice, setRequirement);
+        if(e.target.value === 'Trade'){
+            setOption('Trade');
+        } else {
+            setOption('Sell')
+        }
+    }
+
+    const changingOption = () => {
+        if(option === "Trade"){
+            return <><h1 className="text-3xl mb-4 font-bold">
+                        Desire Trade
+                    </h1>
+                    <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your trade requirements' required></input></>;
+        } else {
+            return <><h1 className="text-3xl mb-4 font-bold">
+                        Price
+                    </h1>
+                    <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
+                    placeholder='Enter your price rate ₱' required></input></>;
+        }
     }
 
     const handlePost = () => {
@@ -102,7 +118,7 @@ export default function Trade(){
                 <section>
                     <SelectMethod onChange={handleMethodChange}/>
                     <div className="m-15 px-10 rounded-lg font-mono">
-                                {option}
+                     {changingOption()}
                     </div>
                     <SelectCollege onChange={(e) => setProgram(e.target.value)} />
                     <div className="m-15 px-10 rounded-lg font-mono">
@@ -122,19 +138,3 @@ export default function Trade(){
     );
 }
 
-
-function methods(value, setOption, setPrice, setRequirement){
-    if(value === "Trade"){
-        return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                                        Desire Trade
-                                        </h1>
-                                        <input onChange={(e) => setRequirement(e.target.value)} className=" outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                                        placeholder='Enter your trade requirements' required></input></>);
-    } else if(value === "Sell"){
-        return setOption(<><h1 className="text-3xl mb-4 font-bold">
-                        Price
-                        </h1>
-                        <input onChange={(e) => setPrice(e.target.value)} className="outline-none border-0 border-b w-100 border-white-500 rounded-sm"
-                        placeholder='Enter your price rate ₱' required></input></>);
-    }
-}
