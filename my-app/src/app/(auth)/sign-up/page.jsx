@@ -2,7 +2,7 @@
 
 import { IoLogInOutline } from "react-icons/io5";
 import { RiAccountCircle2Line } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Input from "../../components/Input.jsx";
 import Button from "../../components/Button.jsx";
 import Link from "next/link";
