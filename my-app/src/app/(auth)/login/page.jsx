@@ -9,7 +9,24 @@ import Link from "next/link";
 
 export default function Login(){
     const [username, setUsername] = useState("");
-    const [password, setPassowrd] = useState("");
+    const [password, setPassword] = useState("");
+
+    const submitAccount = async () => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+    }
 
     const error = () => {
         
@@ -32,16 +49,16 @@ export default function Login(){
                 <p className="text-sm">Please enter your details to login</p>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input label="Enter your Email: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="outline-none border-b rounded-sm py-1 px-2 w-90 text-xs mt-2"
-                    type="email" placeholder="Enter you SLSU email" required />
+                    type="email" placeholder="Enter you SLSU email" />
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2" type="text" placeholder="Enter your password"
-                    onChange={(e) => setPassowrd(e.target.value)} label="Enter your Password: " required />
+                    onChange={(e) => setPassword(e.target.value)} label="Enter your Password: "/>
                     <error />
                 </div>
                 <div className="self-start ml-15 mt-7 flex flex-col text-sm">
-                    <Button className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
+                    <Button onClick={submitAccount} className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
                 </div>
                 <Link href="/forgot-password">
                 <p className="text-sm mt-10 cursor-pointer hover:border-b">Forgot password? </p>
