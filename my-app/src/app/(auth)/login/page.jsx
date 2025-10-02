@@ -6,10 +6,16 @@ import { useEffect, useState } from "react";
 import Input from "../../components/Input.jsx";
 import Button from "../../components/Button.jsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation.js";
 
 export default function Login(){
+    
+    const router = useRouter();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [errors, setError] = useState(false);
 
     const submitAccount = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/auth/login`, {
@@ -25,11 +31,21 @@ export default function Login(){
 
         const data = await response.json();
 
-        console.log(data);
+        if(!response.ok){
+            setError(true);
+            setMessage(data.message);
+        }
+
+        return router.push("/");
+
     }
 
-    const error = () => {
-        
+    const error = (errors) => {
+        if(errors){
+            return <>
+                <p className="text-red-600 font-bold text-sm mt-2">{message}</p>
+            </>
+        }
     }
 
     return <>
@@ -50,14 +66,13 @@ export default function Login(){
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input label="Enter your Email: " onChange={(e) => setUsername(e.target.value)} titleClassName="text-sm" inputClassName="outline-none border-b rounded-sm py-1 px-2 w-90 text-xs mt-2"
                     type="email" placeholder="Enter you SLSU email" />
-                    <error />
                 </div>
                 <div className="self-start ml-15 mt-5 flex flex-col text-sm">
                     <Input titleClassName="text-sm" inputClassName="border-b outline-none rounded-sm py-1 px-2 w-90 text-xs mt-2" type="text" placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)} label="Enter your Password: "/>
-                    <error />
+                    {error(errors)}
                 </div>
-                <div className="self-start ml-15 mt-7 flex flex-col text-sm">
+                <div className="self-start ml-15 mt-3 flex flex-col text-sm">
                     <Button onClick={submitAccount} className="border cursor-pointer hover:scale-110 bg-gray-800 border-gray-800 shadow-[3px_3px_7px_white] rounded-lg p-2 w-90" type="submit" label="Login" />
                 </div>
                 <Link href="/forgot-password">
