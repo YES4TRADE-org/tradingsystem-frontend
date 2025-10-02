@@ -36,7 +36,8 @@ export default function Login(){
             setMessage(data.message);
         }
 
-        return router.push("/");
+        console.log(data.token);
+        //return router.push("/");
 
     }
 
