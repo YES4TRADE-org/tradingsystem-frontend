@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import Input from "../../components/Input.jsx";
+import Input from "../../(components)/Input.jsx";
 import Link from "next/link";
-import Button from "../../components/Button.jsx";
-import { SelectProduct, SelectMethod, SelectCollege } from "../../components/Select.jsx";
-
+import Button from "../../(components)/Button.jsx";
+import { SelectProduct, SelectMethod, SelectCollege } from "../../(components)/Select.jsx";
 
 export default function Trade(){
     const [email, setEmail] = useState("");

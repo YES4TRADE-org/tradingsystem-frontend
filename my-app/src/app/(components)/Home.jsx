@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Books(){
+
     const [items, setItems] = useState([]);
 
     const methods = (method, type1, type2) => {
@@ -10,21 +12,33 @@ export default function Books(){
         return <p>Requirements: {type1}</p>
     }
 
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/getbooks`)
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error("Error! Cannot get books");
-            }
-            return res.json();
-        })
-        .then((json) => {
-            console.log("Fetched:", json);
-            setItems(json);
-        })
-        .catch((err) => {
-            console.log(err);
+    useEffect( () => {
+
+        const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')).token : null;
+
+        const fetchBook = async () => {
+            const router = useRouter();
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/getbooks`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
         });
+
+            if(!response.ok){
+                return router.push('/login');
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+
+            setItems(data);
+    }
+
+        fetchBook();
+
     }, []);
 
      return (
