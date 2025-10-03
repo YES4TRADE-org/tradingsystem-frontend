@@ -92,8 +92,10 @@ export default function Trade(){
                     body: formData
                 });
 
+                const data = await response.json();
+
                 if(!response.ok){
-                    return alert('Cannot post! Invalid input!');
+                    return alert(data.message);
                 }
 
                 return router.push('/');
