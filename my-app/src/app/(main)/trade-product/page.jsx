@@ -42,7 +42,9 @@ export default function Trade(){
         }
     }
 
-    const handlePost = () => {
+    const handlePost =  async () => {
+        const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')).token : null;
+
         const formData = new FormData();
             formData.append("image", picture); 
             formData.append("title", productName);
@@ -58,43 +60,37 @@ export default function Trade(){
                 console.log(picture);
                 formData.append("requirement", requirement);
 
-                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-trade`, {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: formData
-                })
-                .then(res => {
-                    if(!res.ok){
-                        throw new Error('Error! Cannot fetch due to errors')
-                    }
-                    return res.json();
-                })
-                .then(json => {
-                    console.log("Fetched: ", json);
-                })
-                .catch(err => {
-                    console.error(err);
                 });
+
+                if(!response.ok){
+                    return alert('Cannot post! Invalid input!');
+                }
+
+                return alert('Post succesfully');
+
           } else {
                 
                 formData.append("price", price);
 
-                fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/upload-sell`, {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: formData
-                })
-                .then(res => {
-                    console.log(res.status);
-                    if(!res.ok){
-                        throw new Error('Error! Cannot fetch due to errors')
-                    }
-                    return res.json();
-                })
-                .then(json => {
-                    console.log('Fetched: ', json);
-                })
-                .catch(err => {
-                    console.error(err);
                 });
+
+                if(!response.ok){
+                    return alert('Cannot post! Invalid input!');
+                }
+
+                return alert('Post succesfully');
             }
                 
     }
