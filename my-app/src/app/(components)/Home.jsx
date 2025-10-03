@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation.js";
 
 export default function Books(){
 
@@ -12,12 +12,13 @@ export default function Books(){
         return <p>Requirements: {type1}</p>
     }
 
-    useEffect( () => {
+    const router = useRouter();
+
+    useEffect(() => {
 
         const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')).token : null;
 
         const fetchBook = async () => {
-            const router = useRouter();
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/yes4trade/getbooks`, {
                 method: 'GET',
@@ -40,6 +41,8 @@ export default function Books(){
         fetchBook();
 
     }, []);
+
+    console.log(items);
 
      return (
         <>

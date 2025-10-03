@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import Input from "../../(components)/Input.jsx";
-import Link from "next/link";
+import { useRouter } from "next/navigation.js";
 import Button from "../../(components)/Button.jsx";
 import { SelectProduct, SelectMethod, SelectCollege } from "../../(components)/Select.jsx";
 
 export default function Trade(){
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
     const [studentId, setStudentId] = useState("");
     const [program, setProgram] = useState("");
@@ -68,11 +70,15 @@ export default function Trade(){
                     body: formData
                 });
 
+                const data = await response.json();
+
+                console.log(response.status);
+
                 if(!response.ok){
-                    return alert('Cannot post! Invalid input!');
+                    return alert(data.message);
                 }
 
-                return alert('Post succesfully');
+                return router.push('/');
 
           } else {
                 
@@ -90,7 +96,7 @@ export default function Trade(){
                     return alert('Cannot post! Invalid input!');
                 }
 
-                return alert('Post succesfully');
+                return router.push('/');
             }
                 
     }
@@ -123,11 +129,9 @@ export default function Trade(){
                 </section>
             </main>
                 <div>
-                    <Link href="/">
                     <Button onClick={handlePost} className="font-mono absolute right-150 top-185 
                     cursor-pointer font-bold mx-auto block border rounded-lg px-7 py-2 text-3xl" type="submit"
                     label="Post"/>
-                    </Link>
                 </div>
         </>
     );
